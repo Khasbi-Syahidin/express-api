@@ -1,9 +1,15 @@
 import express from "express";
-import { createUsers, getUsers } from "../controllers/usersController.js";
+import { create, index, update, show } from "../controllers/usersController.js";
 const userRoute = express.Router()
 
-userRoute.get('/', getUsers)
+import { validatorCreateUser, validatorUpdateUser} from "../validators/userValidator.js"
 
-userRoute.post('/', createUsers)
+userRoute.get('/', index)
+
+userRoute.get('/:id', show)
+
+userRoute.post('/', validatorCreateUser, create)
+
+userRoute.put('/:id', validatorUpdateUser, update)
 
 export default userRoute
